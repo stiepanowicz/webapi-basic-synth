@@ -1,4 +1,4 @@
-!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,7 @@
         const oscillator = audioContext.createOscillator();
         oscillator.frequency.value = frequency;
         oscillator.type = "sine";
-        oscillator.start();
+        // oscillator.start();
         return oscillator;
     }
 
@@ -62,16 +62,75 @@
             });
         }
     }
-
     
-
     // Create oscillators for Sine A, B, and C after the user clicks the page
-
-    
     const sineA = createOscillator(440);
     const sineB = createOscillator(523.25);
     const sineC = createOscillator(698.46);
 
+    // Event listeners for each osc
+    const playPauseSineA = document.querySelector("#PlayPauseA");
+    
+    playPauseSineA.addEventListener(
+        "click",
+        () => {
+            // Check if context is in suspended state (autoplay policy)
+            if (audioContext.state === "suspended") {
+                    audioContext.resume();
+                    return;
+                }
+
+            // Play or pause osc depending on state
+            if (playPauseSineA.dataset.playing === "false") {
+                    sineA.start();
+                    playPauseSineA.dataset.playing = "true";
+                } else if (playPauseSineA.dataset.playing === "true") {
+                    sineA.stop();
+                    playPauseSineA.dataset.playing = "false";
+        }
+    });
+
+    const playPauseSineB = document.querySelector("#PlayPauseB");
+    
+    playPauseSineB.addEventListener(
+        "click",
+        () => {
+            // Check if context is in suspended state (autoplay policy)
+            if (audioContext.state === "suspended") {
+                    audioContext.resume();
+                    return;
+                }
+
+            // Play or pause osc depending on state
+            if (playPauseSineB.dataset.playing === "false") {
+                    sineB.start();
+                    playPauseSineB.dataset.playing = "true";
+                } else if (playPauseSineB.dataset.playing === "true") {
+                    sineB.stop();
+                    playPauseSineB.dataset.playing = "false";
+        }
+    });
+
+    const playPauseSineC = document.querySelector("#PlayPauseC");
+    
+    playPauseSineC.addEventListener(
+        "click",
+        () => {
+            // Check if context is in suspended state (autoplay policy)
+            if (audioContext.state === "suspended") {
+                    audioContext.resume();
+                    return;
+                }
+
+            // Play or pause osc depending on state
+            if (playPauseSineC.dataset.playing === "false") {
+                    sineC.start();
+                    playPauseSineC.dataset.playing = "true";
+                } else if (playPauseSineC.dataset.playing === "true") {
+                    sineC.stop();
+                    playPauseSineC.dataset.playing = "false";
+        }
+    });
 </script>
     
 </body>
