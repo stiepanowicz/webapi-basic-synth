@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Synth</title>
+</head>
+<body>
+    <script>
+        // instantiate audio context
+        const audioContext = new AudioContext();
+        
+        // making an oscillators
+        const sineA = audioContext.createOscillator();
+        sineA.frequency.value = 440;
+        sineA.type = "sine";
+        sineA.start();
+        sineA.connect(audioContext.destination);
+
+        const sineB = audioContext.createOscillator();
+        sineB.frequency.value = 523.25;
+        sineB.type = "sine";
+        sineB.start();
+        sineB.connect(audioContext.destination);
+
+        const sineC = audioContext.createOscillator();
+        sineC.frequency.value = 698.46;
+        sineC.type = "sine";
+        sineC.start();
+        sineC.connect(audioContext.destination);
+
+        
+
+    </script>
+</body>
+</html>
