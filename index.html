@@ -6,30 +6,62 @@
     <title>Basic Synth</title>
 </head>
 <body>
+    <div id="VolumeDiv">
+        <p>Volume</p>
+        <input type="range" id="volume" min="0" max="2" value="1" step="0.01" />
+    </div>    
+    <div id="SineA">
+        <button id="PlayPauseA" data-playing="false" role="switch" aria-checked="false">
+            <span>Play/Pause</span>
+        </button>
+    </div>
+    <div id="SineB">
+        <button id="PlayPauseB" data-playing="false" role="switch" aria-checked="false">
+            <span>Play/Pause</span>
+        </button>
+    </div>
+    <div id="SineC">
+        <button id="PlayPauseC" data-playing="false" role="switch" aria-checked="false">
+            <span>Play/Pause</span>
+        </button>
+    </div>
+
     <script>
         // instantiate audio context
         const audioContext = new AudioContext();
+        
+        // gain node
+        const volume = audioContext.createGain();
+        volume.connect(audioContext.destination);
+
+        const volumeControl = document.querySelector("#volume");
+
+        volumeControl.addEventListener(
+            "input",
+            () => {
+                volume.gain.value = volumeControl.value;
+            },
+            false,
+        );
         
         // making an oscillators
         const sineA = audioContext.createOscillator();
         sineA.frequency.value = 440;
         sineA.type = "sine";
         sineA.start();
-        sineA.connect(audioContext.destination);
+        sineA.connect(volume);
 
         const sineB = audioContext.createOscillator();
         sineB.frequency.value = 523.25;
         sineB.type = "sine";
         sineB.start();
-        sineB.connect(audioContext.destination);
+        sineB.connect(volume);
 
         const sineC = audioContext.createOscillator();
         sineC.frequency.value = 698.46;
         sineC.type = "sine";
         sineC.start();
-        sineC.connect(audioContext.destination);
-
-        
+        sineC.connect(volume);
 
     </script>
 </body>
