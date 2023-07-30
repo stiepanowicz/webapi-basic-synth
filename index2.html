@@ -1,0 +1,78 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Synth</title>
+</head>
+<body>
+    <div id="VolumeDiv">
+    <p>Volume</p>
+    <input type="range" id="volume" min="0" max="2" value="1" step="0.01" />
+</div>    
+<div id="SineA">
+    <p>Sine A</p>
+    <button id="PlayPauseA" data-playing="false" role="switch" aria-checked="false">
+        <span>Play/Pause</span>
+    </button>
+</div>
+<div id="SineB">
+    <p>Sine B</p>
+    <button id="PlayPauseB" data-playing="false" role="switch" aria-checked="false">
+        <span>Play/Pause</span>
+    </button> 
+</div>
+<div id="SineC">
+    <p>Sine C</p>
+    <button id="PlayPauseC" data-playing="false" role="switch" aria-checked="false">
+        <span>Play/Pause</span>
+    </button>
+</div>
+
+<script>
+    // Function to create oscillator with given frequency
+    function createOscillator(frequency) {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        oscillator.frequency.value = frequency;
+        oscillator.type = "sine";
+        oscillator.start();
+        return oscillator;
+    }
+
+    // Create gain node and connect to audio destination
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const volume = audioContext.createGain();
+    volume.connect(audioContext.destination);
+
+    const volumeControl = document.querySelector("#volume");
+    volumeControl.addEventListener(
+        "input",
+        () => {
+            volume.gain.value = volumeControl.value;
+        },
+        false,
+    );
+
+    // Function to handle the user click and start the audio context
+    function startAudioContext() {
+        if (audioContext.state === "suspended") {
+            audioContext.resume().then(() => {
+                console.log("AudioContext resumed successfully");
+            });
+        }
+    }
+
+    
+
+    // Create oscillators for Sine A, B, and C after the user clicks the page
+
+    
+    const sineA = createOscillator(440);
+    const sineB = createOscillator(523.25);
+    const sineC = createOscillator(698.46);
+
+</script>
+    
+</body>
+</html>
